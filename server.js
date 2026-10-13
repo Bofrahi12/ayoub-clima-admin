@@ -1,4 +1,4 @@
-// AYOUB Climatisation — admin/content API (zero-dependency Node)
+// AWAB CLIM — admin/content API (zero-dependency Node)
 const http = require('http');
 const fs = require('fs');
 const crypto = require('crypto');
@@ -11,14 +11,14 @@ const TOKEN_SECRET = process.env.TOKEN_SECRET || crypto.randomBytes(32).toString
 const FILE = path.join(__dirname, 'content.json');
 
 const DEFAULT_CONTENT = {
-  brand: 'AYOUB',
-  tagline: 'Climatisation professionnelle à Tanger',
+  brand: 'AWAB CLIM',
+  tagline: 'Votre confort, notre priorité !',
   heroTitleFR: "Climatisation professionnelle à Tanger — installation, VRV/VRF & maintenance pour les projets qui ne peuvent pas s'arrêter.",
   heroSubFR: "Hôtels, cliniques, usines, bureaux et résidences : étude, dimensionnement, installation et contrats de maintenance annuels.",
   phoneDisplay: '+212 699-963530',
   phoneIntl: '212699963530',
-  email: 'eljartiayoub8@gmail.com',
-  yearsExperience: 5,
+  email: 'awabclimatisation@gmail.com',
+  yearsExperience: 12,
   servicesFR: [],
   testimonials: [
     { name: 'Client villa — Malabata (démo)', text: "Installation gainable propre et silencieuse, chantier terminé dans les délais annoncés.", stars: 5 },
@@ -61,7 +61,7 @@ const server = http.createServer((req, res) => {
   });
 
   if (req.url === '/api/health') return json(200, { ok: true, service: 'ayoub-clima-admin' });
-  if (req.url === '/' ) { res.writeHead(200, { 'Content-Type': 'text/plain' }); return res.end('AYOUB Climatisation — admin API'); }
+  if (req.url === '/' ) { res.writeHead(200, { 'Content-Type': 'text/plain' }); return res.end('AWAB CLIM — admin API'); }
   if (req.url === '/api/content' && req.method === 'GET') return json(200, loadContent());
   if (req.url === '/api/login' && req.method === 'POST') {
     return readBody().then(b => {
