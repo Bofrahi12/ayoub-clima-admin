@@ -66,7 +66,7 @@ const server = http.createServer((req, res) => {
   if (req.url === '/api/login' && req.method === 'POST') {
     return readBody().then(b => {
       const ok = ADMIN_EMAIL && b.email === ADMIN_EMAIL && typeof b.password === 'string' &&
-        crypto.timingSafeEqual(Buffer.from(b.password.padEnd(64, ' ')), Buffer.from((ADMIN_PASSWORD || '').padEnd(64, ' '))) && b.password === ADMIN_PASSWORD;
+        crypto.timingSafeEqual(Buffer.from(String(b.password).replace(/\s+/g, '').toLowerCase().padEnd(64, ' ')), Buffer.from(String(ADMIN_PASSWORD || '').replace(/\s+/g, '').toLowerCase().padEnd(64, ' '))) && String(b.password).replace(/\s+/g, '').toLowerCase() === String(ADMIN_PASSWORD || '').replace(/\s+/g, '').toLowerCase();
       if (!ok) return json(401, { error: 'Email ou mot de passe incorrect' });
       json(200, { token: sign({ email: ADMIN_EMAIL, exp: Date.now() + 12 * 3600 * 1000 }) });
     }).catch(() => json(400, { error: 'bad request' }));
